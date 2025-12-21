@@ -1,56 +1,213 @@
 package application;
 
-public class Solution {
+/*
+	Given a roman numeral, convert it to an integer.
+ */
+
+class Solution {
 	
 	public static void main (String args[]) {
 		
-		/*
+		String s = "III";
 		
-		LEETCODE EXERCISE:
+		System.out.println("Input: " + s);
+		System.out.println("Output: " + romanToInt(s));
 		
-		Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-
-		You may assume that each input would have exactly one solution, and you may not use the same element twice.
-		
-		You can return the answer in any order.
-		
-		Example 1:
-		
-		Input: nums = [2,7,11,15], target = 9
-		Output: [0,1]
-		Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-		Example 2:
-		
-		Input: nums = [3,2,4], target = 6
-		Output: [1,2]
-		Example 3:
-		
-		Input: nums = [3,3], target = 6
-		Output: [0,1]
-		
-		*/
-		
-		int nums[] = {2, 7, 11, 15};
-		int target = 9;
-		
-		System.out.println("{" + twoSum(nums, target)[0] + ", " + twoSum(nums, target)[1] + "}");
 	}
 	
-    public static int[] twoSum(int[] nums, int target) {
+    public static int romanToInt(String s) {
         
-        int[] result = {0, 1};
+        int result = 0;
+        char previousLetter = 'M';
 
-        for (int i = 0; i<nums.length; i++){
-            
-            for (int j = 0; j<nums.length; j++){
+        for (int i = 0; i<s.length(); i++){
+    
+            char x = s.charAt(i);
 
-                if (nums[i] + nums[j] == target && j != i){
-                    result[0] = i;
-                    result[1] = j;
+            if (taller(x, previousLetter) == x){          
+
+                switch (x){
+                    case 'I':
+                        result -= simpleRomanToInteger(previousLetter) + 1;
+                    break;
+
+                    case 'V':
+                        result -= simpleRomanToInteger(previousLetter) + 5;
+                    break;
+
+                    case 'X':
+                        result -= simpleRomanToInteger(previousLetter) + 10;
+                    break;
+
+                    case 'L':
+                        result -= simpleRomanToInteger(previousLetter) + 50;
+                    break;
+
+                    case 'C':
+                        result -= simpleRomanToInteger(previousLetter) + 100;
+                    break;
+
+                    case 'D':
+                        result -= simpleRomanToInteger(previousLetter) + 500;
+                    break;
+
+                    case 'M':
+                        result -= simpleRomanToInteger(previousLetter) + 1000;
                     break;
                 }
             }
+            else{
+                switch (x){
+                    case 'I':
+                        result += 1;
+                    break;
+
+                    case 'V':
+                        result += 5;
+                    break;
+
+                    case 'X':
+                        result += 10;
+                    break;
+
+                    case 'L':
+                        result += 50;
+                    break;
+
+                    case 'C':
+                        result += 100;
+                    break;
+
+                    case 'D':
+                        result += 500;
+                    break;
+
+                    case 'M':
+                        result += 1000;
+                    break;
+                }
+            }
+
+            previousLetter = x;
         }
         return result;
+    }
+
+    public static int simpleRomanToInteger(char roman){
+        
+        int romanInt = 0;
+
+        switch (roman){
+            case 'I':
+                romanInt = 1;
+            break;
+
+            case 'V':
+                romanInt = 5;
+            break;
+
+            case 'X':
+                romanInt = 10;
+            break;
+
+            case 'L':
+                romanInt = 50;
+            break;
+
+            case 'C':
+                romanInt = 100;
+            break;
+
+            case 'D':
+                romanInt = 500;
+            break;
+
+            case 'M':
+                romanInt = 1000;
+            break;
+        }
+
+        return romanInt;
+    }
+
+    public static char taller(char first, char second){
+        
+        int firstNumber = 0;
+        int secondNumber = 0;
+        char taller = 'I';
+
+        switch (first){
+
+            case 'I':
+                firstNumber = 1;
+            break;
+
+            case 'V':
+                firstNumber = 5;
+            break;
+
+            case 'X':
+                firstNumber = 10;
+            break;
+
+            case 'L':
+                firstNumber = 50;
+            break;
+
+            case 'C':
+                firstNumber = 100;
+            break;
+
+            case 'D':
+                firstNumber = 500;
+            break;
+
+            case 'M':
+                firstNumber = 1000;
+            break;
+        }
+
+        switch (second){
+
+            case 'I':
+                secondNumber = 1;
+            break;
+
+            case 'V':
+                secondNumber = 5;
+            break;
+
+            case 'X':
+                secondNumber = 10;
+            break;
+
+            case 'L':
+                secondNumber = 50;
+            break;
+
+            case 'C':
+                secondNumber = 100;
+            break;
+
+            case 'D':
+                secondNumber = 500;
+            break;
+
+            case 'M':
+                secondNumber = 1000;
+            break;
+        }
+
+        if (firstNumber > secondNumber){
+            taller = first;
+        }
+        else if (firstNumber < secondNumber){
+            taller = second;
+        }
+        else{
+            taller = 'n';
+        }
+
+        return taller;
     }
 }
