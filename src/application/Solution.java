@@ -1,131 +1,23 @@
 package application;
 
-/*
+public class Solution {
 
-	Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
-
-	Symbol       Value
-	I             1
-	V             5
-	X             10
-	L             50
-	C             100
-	D             500
-	M             1000
-	For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply 
-	X + II. The number 27 is written as XXVII, which is XX + V + II.
-	
-	Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII.
-	Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same
-	principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
-	
-	I can be placed before V (5) and X (10) to make 4 and 9. 
-	X can be placed before L (50) and C (100) to make 40 and 90. 
-	C can be placed before D (500) and M (1000) to make 400 and 900.
-	Given a roman numeral, convert it to an integer.
-	
-	Example 1:
-	
-	Input: s = "III"
-	Output: 3
-	Explanation: III = 3.
-	Example 2:
-	
-	Input: s = "LVIII"
-	Output: 58
-	Explanation: L = 50, V= 5, III = 3.
-	Example 3:
-	
-	Input: s = "MCMXCIV"
-	Output: 1994
-	Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
-	 
-	
-	Constraints:
-	
-	1 <= s.length <= 15
-	s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
-	It is guaranteed that s is a valid roman numeral in the range [1, 3999].
-
- */
-
-
-class Solution {
-    
-	public static void main (String args[]) {
-		
-		String input = "MCMXCIV";
-		int output = romanToInt(input);
-		
-		System.out.println("Input: " + input);
-		System.out.println("Output: " + output);
+	public static void main(String[] args) {
 		
 	}
 	
-    public static int romanToInt(String s) {
-        
-        int result = 0;
-
-        for (int i = 0; i<s.length(); i++){
-            
-            char roman = s.charAt(i);
-            char nextRoman = 'n';
-
-            if (i < s.length()-1) {
-                nextRoman = s.charAt(i+1);
-            }
-
-            int romanInt = simpleRomanToInteger(roman);
-            int nextRomanInt = simpleRomanToInteger(nextRoman);
-
-            if (romanInt >= nextRomanInt){
-                result += romanInt;
-            }
-            else{
-                result += nextRomanInt-romanInt;
-                i++;
-            }    
-        }
-        return result;
-    }
-
-    public static int simpleRomanToInteger(char roman){
-        
-        int romanInt = 0;
-
-        switch (roman){
-            case 'I':
-                romanInt = 1;
-            break;
-
-            case 'V':
-                romanInt = 5;
-            break;
-
-            case 'X':
-                romanInt = 10;
-            break;
-
-            case 'L':
-                romanInt = 50;
-            break;
-
-            case 'C':
-                romanInt = 100;
-            break;
-
-            case 'D':
-                romanInt = 500;
-            break;
-
-            case 'M':
-                romanInt = 1000;
-            break;
-
-            case 'n':
-                romanInt = 0;
-            break;
-        }
-        return romanInt;
-    }
+	public String longestCommonPrefix(String[] strs) {
+		
+		String result = "";
+		
+		for (int i = 0; i<strs[0].length(); i++) {
+			if (strs[1].contains(strs[0].substring(0, strs[0].length()-i)) &&
+				strs[2].contains(strs[0].substring(0, strs[0].length()-i))
+			   )
+			{
+				return strs[0].substring(0, strs[0].length()-1);
+			}
+		}
+		return result;
+	}
 }
