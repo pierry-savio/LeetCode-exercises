@@ -23,20 +23,40 @@ public class Solution {
 	public static String longestCommonPrefix(String[] strs) {
 		
 		String result = "";
-		int count = 0;
 		
-		for (int i = 0; i<strs[0].length(); i++) {
-			
-			for (int j = 1; j<strs.length; j++) {
-				
-				if (strs[j].contains(strs[0].substring(0, strs[0].length()-i))) {
-					count++;
-				}
-				if (count == strs.length) {
-					return strs[0].substring(0, strs[0].length()-i);
-				}
-			}
-		}
+        String target = strs[0];
+
+        int count = 0;
+
+        if (strs.length > 1){
+
+            if (target.length() > 1){
+
+                for (int i = 0; i<strs[0].length(); i++){
+
+                    for (int j = 1; j<strs.length; j++){
+
+                        if (strs[j].contains(target.substring(0, target.length()-i))){
+                            count++;
+                        }
+                        else{
+                            count = 0;
+                        }
+                        if (count == strs.length-1){
+                            result = target.substring(0, target.length()-i);
+                        break;
+                        }
+                    }
+                }
+            }
+        }
+        else if (strs.length <= 1){
+            result = strs[0];
+        }
+        else{
+            result = "";
+        }
+		
 		return result;
 	}
 }
